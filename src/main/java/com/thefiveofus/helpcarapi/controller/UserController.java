@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/user")
 @RequiredArgsConstructor
@@ -18,6 +20,12 @@ public class UserController {
     public String registerUser(@RequestBody User user){
         userService.registerUser(user);
         return "User Registered Successfully!";
+    }
+
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public List<User> getAllProducts(){
+        return userService.getAllUsers();
     }
 
 }

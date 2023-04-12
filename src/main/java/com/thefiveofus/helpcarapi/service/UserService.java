@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -22,5 +24,10 @@ public class UserService {
         userRepo.save(user);
         log.info("User {} is saved", user.getId());
 
+    }
+
+    public List<User> getAllUsers() {
+        List<User> users = userRepo.findAll();
+        return users;
     }
 }
