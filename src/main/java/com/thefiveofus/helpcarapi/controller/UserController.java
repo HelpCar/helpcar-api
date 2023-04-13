@@ -1,6 +1,7 @@
 package com.thefiveofus.helpcarapi.controller;
 
 import com.thefiveofus.helpcarapi.model.User;
+import com.thefiveofus.helpcarapi.model.Vehicle;
 import com.thefiveofus.helpcarapi.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -26,6 +27,13 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     public List<User> getAllProducts(){
         return userService.getAllUsers();
+    }
+
+    @PutMapping("/{email}")
+    @ResponseStatus(HttpStatus.OK)
+    public String updateSingleUser(@PathVariable String email,@RequestBody User user ){
+        userService.updateSingleUser(email,user);
+        return "User updated Successfully!";
     }
 
 }
