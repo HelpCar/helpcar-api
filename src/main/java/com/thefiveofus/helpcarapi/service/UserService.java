@@ -3,10 +3,13 @@ package com.thefiveofus.helpcarapi.service;
 import com.thefiveofus.helpcarapi.model.User;
 import com.thefiveofus.helpcarapi.model.Vehicle;
 import com.thefiveofus.helpcarapi.repository.UserRepo;
+import com.thefiveofus.helpcarapi.repository.VehicleRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Service;
 
+import javax.management.Query;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -17,6 +20,7 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepo userRepo;
+    private final VehicleRepo vehicleRepo;
 
     public void registerUser(User user){
         user = User.builder()
@@ -50,5 +54,22 @@ public class UserService {
             userRepo.save(updatedUser);
         }
 
+    }
+
+    public List<Vehicle> getVehiclesOfUser(String userId){
+
+        List<Vehicle> vehicles = vehicleRepo.findByUserEmail(getUserEmailById(userId));
+        return vehicles;
+
+    }
+
+    public String getUserEmailById(String userId){
+        Optional<User> user;
+        user = userRepo.findById(userId);
+
+        String email;
+        email=user.get().getEmail();
+
+        return email;
     }
 }

@@ -36,4 +36,10 @@ public class UserController {
         return "User updated Successfully!";
     }
 
+    @GetMapping("/get_vehicles/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Vehicle> getVehiclesByUserId(@PathVariable String id){
+        return userService.getVehiclesOfUser(id);
+    }
+
 }
